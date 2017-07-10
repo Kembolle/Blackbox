@@ -1,0 +1,106 @@
+#========================================================================
+# Conky-Linux
+# author: Brahim Salem-Tunisia
+# telephone: 00216 97 95 72 72
+#========================================================================
+
+background yes
+update_interval 1
+total_run_times 0
+
+cpu_avg_samples 1
+net_avg_samples 2
+temperature_unit celsius
+
+double_buffer yes
+no_buffers yes
+text_buffer_size 2048
+
+gap_x 1030
+gap_y 20
+minimum_size 190 350
+maximum_width 320
+own_window yes
+own_window_type dock
+own_window_transparent yes
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager,below
+border_inner_margin 0
+border_outer_margin 0
+#alignment top_left 
+
+draw_shades yes
+draw_outline yes
+draw_borders no
+draw_graph_borders yes
+
+override_utf8_locale yes
+use_xft yes
+xftfont caviar dreams:size=8
+xftalpha 0.5
+uppercase no
+
+
+default_color Olivedrab3
+color0 Royalblue3	
+color1 Grey		
+color2 Olivedrab3	
+color3 Yellow	
+color4 Orange	
+color5 DDDDDD
+color6 AAAAAA
+color7 888888
+color8 666666
+color9 FF4500
+
+TEXT
+${color1}Linux ${color}Mint ${hr 3} 
+${color1}$alignc from freedom came elegance
+${color9}${font :Bold:size=14} $alignc ${time %H}:${time %M}
+${color}${font :Bold:size=14} $alignc ${time %h} ${time %e} - ${time %Y}${font :Bold:size=08} 
+$alignc(${time %A})
+${color8}$alignc Uptime: $uptime
+${color}$sysname $kernel $nodename    $machine
+${color9}CPU & Memory $hr:
+${color}CPU Usage:${color0}$alignr${cpubar 8,145} ${color1}$cpu%@${freq_g cpu}GHz
+${color}Core1: ${color0}${cpubar cpu1 7,76} ${color1}${cpu cpu1}% $alignr${color1}${cpu cpu2}%${color0}${cpubar cpu2 7,76}${color} :Core2
+${color}Core3: ${color0}${cpubar cpu3 7,76} ${color1}${cpu cpu3}% $alignr${color1}${cpu cpu4}%${color0}${cpubar cpu4 7,76}${color} :Core4
+${color1}${cpugraph 15,320 000000 ff0000}
+${color}RAM ${alignr}${color1}$mem / $memmax ($memperc%)
+${color0}${membar 8}
+${color}SWAP ${alignr}${color1}$swap / $swapmax ($swapperc%)
+${color0}${swapbar 8}
+${color}Highest CPU & Memory $alignr CPU% MEM%
+${color6}${top name 1}$alignr${top cpu 1} ${top mem 1}
+${color7}${top name 2}$alignr${top cpu 2} ${top mem 2}
+${color8}${top name 3}$alignr${top cpu 3} ${top mem 3}
+${color8}${top name 4}$alignr${top cpu 4} ${top mem 4}
+
+${color9}Temperature: ${color3}CPU: ${color1}${hwmon 0 temp 1}°C
+
+${color4}HDD:
+${color1}Linux:${color1}(${fs_type})${alignr}${color5}${fs_size /}>${color6}${fs_used /}${color0}${alignr}${fs_bar 8,75} ${color7}(${fs_used_perc /}%)
+${color3}HDD Read-> ${alignc}${color2}${diskio_read}/s ${alignr}${color3}${diskio_write}/s ${color7}<-HDD Write
+${color1}${diskiograph_read 10,150 000000 ff0000} ${alignr}${color1}${diskiograph_write 10,150 000000 ff0000}$color
+
+${color9}Battery Status $hr
+${color1}${alignr} ${battery BAT0} $alignr
+${color0}${battery_bar BAT0}
+
+${color9}Networks $hr:
+${color4}Net:${color} ${alignr}${color7}IP: ${addr }
+${color3}Download: ${color2}${downspeed } k/s ${alignr} $alignr${color3}Upload: ${color3} ${upspeed } k/s
+${color}${downspeedgraph 15,140} ${alignr}${color4}${upspeedgraph 15,140}
+${color7}Total Download: ${color2}${totaldown } ${alignr}${color7}Total Upload: ${color3}${totalup }
+${color4}Wifi:${alignr}${color7}IP: ${addr wlan0}
+${color7}ESSID:${color1}${wireless_essid wlan0} ${color7}Rate:${color1}${wireless_bitrate wlan0} ${alignr}${color7}Quality:${color1}${wireless_link_qual_perc wlan0}%${color}${wireless_link_bar 8,80 wlan0}
+${color3}Download: ${color2}${downspeed wlan0}KB/s ${color3} $alignr${color3}Upload: ${alignr}${color3}${upspeed wlan0}KB/s
+${color}${downspeedgraph wlan0 15,140} ${alignr}${color4}${upspeedgraph wlan0 15,140}
+${color7}Total:${color2}${totaldown wlan0} ${alignr}${color7}Total:${color3}${totalup wlan0}
+${color4}ppp0 (${addr ppp0}) ${hr 2}
+${color3}Download: ${color2}${downspeed ppp0} k/s ${alignr} $alignr${color3}Upload: ${color3} ${upspeed ppp0} k/s
+${color}${downspeedgraph ppp0 15,140 000000 ff0000} ${alignr}${color4}${upspeedgraph ppp0 15,140 000000 00ff00}$color
+${color7}Total:${color2}${totaldown ppp0} ${alignr}${color7}Total:${color3}${totalup ppp0}
+${color}${hr 3}
+${image ~/.conky/logo.png -p 0,15 -s 75x75}
+${image ~/.conky/leaf.png -p 225,10 -s 125x85}
+

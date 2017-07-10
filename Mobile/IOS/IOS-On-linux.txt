@@ -1,0 +1,142 @@
+#!/bin/bash
+    #-----------------------------------------------\\
+    # Nome: Applefly - Script custom Open IOS linux for noob's 
+    # Autor da Biblioteca e Referências: Martin Salbaba /  https://launchpad.net/~martin-salbaba/+archive/ubuntu/ppa+libimobiledevice .   
+    # Requisitos do Ambiente: Linux  / ppa / IOS 10.x / Kernel Linux 4.X.X ;D   
+    #-----------------------------------------------\\
+
+
+    #-----------------------------------------------\\
+    # :::: Variáveis de Ambiente ::::  
+    
+    # Versão de Sofware 
+    version="0x01"
+    script_name=" Applefly - Script custom Open IOS linux for noob's "
+    userid=$(id -u)
+    clear
+     
+      #-----------------------------------------------\\
+    echo "Testando Permissão..... "
+    # Permissão de Usuario [Root]
+    a=`whoami`
+    b="root"
+    if [ "$a" = "$b" ]
+    then
+    echo "uid=0(root) gid=0(root) groups=0(root) - Happy Hacking ;D"
+    else
+    echo "--Ops!!Script em MODO USUARIO, Execute como "root" cabeção! ;D"
+    exit 1
+    fi
+    sleep 2
+    #-----------------------------------------------\\
+ 
+   
+    #---------// Cabeçalho.
+   Principal() {
+
+    echo "
+    [+]===================================================================[+]
+    ╔══╗ 
+    ║██║ 
+    ║(O)║♫ ♪ ♫ ♪
+    ╚══╝
+    ▄ █ ▄ █ ▄ ▄ █ ▄ █ ▄ █
+    Min- - - - - - - - - - - -●Max 
+   '- $script_name' | ' - $version' 
+   - Ipad and Iphone script Mount custom  iPhone®, iPod Touch®, iPad® and Apple TV® devices.
+    -------------------------------------------------------------------------------
+
+    How-to. 
+    [1] - Instalar PPA libimobiledevice.
+    [2] - Realizar a atualização e instalação de bibliotecas pendentes nos repositorios.  [apt-get update & Upgrade].
+    [3] - Reeiniciar Equipamento. 
+    [4] - Executar Novamente applefly. 
+    [5] - Adicione o aparelho a USB e aguarde montagem dos diretorios.  
+
+    [+]===================================================================[+]
+      Usage: Digite por qual opção do how-to quer começar! ex: 1 <type enter>    
+    [+]===================================================================[+] "
+
+    echo -n "Root@Blackbox:~# " 
+    read opcao 
+    case $opcao in
+    1) PPA ;;
+    2) Atualiza ;;
+    3) Reeiniciar ;;
+    4) applefly ;;
+    5) Montar ;;
+    6) update ;;
+    *) "Opção desconhecida." ; echo ; Principal ;;
+  esac
+}
+
+update() {
+	     sleep 3
+	apt-get update
+Principal 
+} 
+
+
+PPA() {
+    
+     sleep 3
+     echo "[+]========================================[+]"
+     echo " [0x01] - Instalar PPA libimobiledevice.  "
+     echo " Adicionando PPA libimobiledevice "
+     add-apt-repository ppa:martin-salbaba/ppa+libimobiledevice
+     sleep 3
+} #---------//  
+
+
+Atualiza() {
+ 
+    sleep 3
+     echo "[+]========================================[+]"
+     echo " [0x02] - Executar Novamente applefly."
+     echo " Atualizando Repositorio Local "
+     apt-get update && upgrade
+     echo "Instalando aplicação"
+     aptitude  install libimobiledevice*
+     export GNUTLS_DEBUG_LEVEL=99
+     apt-get update 
+     sleep 3
+} #---------// 
+ 
+
+Reeiniciar() {
+
+    sleep 3
+    echo "[+]========================================[+]"
+    echo " [0x03] - Reeiniciar Equipamento. "
+    reboot -r now 
+    sleep 3
+} #---------// 
+
+
+applefly() {
+
+	sleep 3
+     echo "[+]========================================[+]"
+     echo " [0x04] - Executar Novamente applefly. "
+    # algo que coloque no script de boot ou no /bin direto! 
+    sleep 3
+} #---------//     
+
+
+
+Montar() {
+
+     sleep 3
+     echo "[+]========================================[+]"
+     echo " [0x05] - Adicione o aparelho e aguarde montagem dos diretorios. "
+     idevicepair pair | awk '{print $7}' >> /tmp/iphone.txt
+     Registro=$( cat /tmp/iphone.txt )
+     echo $Registro
+     # export GNUTLS_DEBUG_LEVEL=99
+     caja afc://$Registro
+     sleep 3
+} #---------//    
+
+Principal
+
+ 

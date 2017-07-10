@@ -1,0 +1,312 @@
+@echo off
+color TD
+cls
+echo.    
+echo ======================================================================
+echo.                                                                                
+echo                 Script ToolboX Network Window$ 7 by O.liverkall                                                                
+echo    . ..................................................................        
+echo    .OZZZ$Z$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ZZ.        
+echo    .Z$$$$$$$$$$$$$$$$7$777777777777777777777777777777777777777777777$Z.        
+echo    .OZ$$$$$$$$$$$$$$$$$$$$$$$$$$$77777777777777777777777777777777777$Z.        
+echo    .OZZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$77777777777777777777777777777$Z.        
+echo    .OZZZZZZZZZZZ$$$$$$$$$$$$$$$$$$$$$$$$$$777$$$77777777777777777777$Z.        
+echo    .8OZZZZZZZZZZZZZZZZZZ$$$$ZZZZZZZZZZ$$$$$$$$$$$$$$$777777777777777$Z.        
+echo    .8OOOOOZZZZZZZZZZZZZZZZZZZ::::,,,,,,,,,,,,=$$$$$$$$$$$$$$$7777777$Z.        
+echo    .8OOOOOOOOOOZZZZZZZZZZZZZO....        ....Z$$$$$$$$$$$$$$$$$$$$$$Z$.        
+echo    .D88OOOOOOOOOOOOOOOOOOOOOO....          .OZZZZ$$$$$$$$$$$$$$$$$$ZO..        
+echo    .D888888OOOOOOOOOOOOOOOOO8....        ..$OZZZZZZZZZZZZ$$$$$$$$$ZZ...        
+echo    .D888888888888888OO8OOOOO8. .         .:OOZZZZZZZZZZZZZZZZZZ$ZZO....        
+echo    .NNNDDDDDDDDDDDDDDDNNDDDNN....      . +OOOOOOOOOZZZZZZZZZZZZZZZ~....        
+echo    ..............................       ,88OOOOOOOOOOOOOOZOZZZZOO,.....        
+echo                              .......  ..888OOOOOOOOOOOOOOOOOOOO87..            
+echo                          ..,~==+??+=:,,D888888888888888OOOOOOO8O...            
+echo                         .,~7,~~~~~:~+.DD8888888888888888888888Z. ..            
+echo                       ..,=7=~~~~~~::::ZDDDD888888888888888888O... .            
+echo                        .~7:=~~~~~~~::?N.~=MNDDDDDNZ?DD88888DZ.... .            
+echo                        ,=I==~~~~~::~:8N~~~~~~=====+7DDDDDDDO...                
+echo                       .,?~==~~~~~~~::D$~~~~~~=====7NDDDDDDD7...                
+echo                       .~Z===~~~~~~~:ZM:~~~~~~=====?NDDDDDDO....                
+echo                      .,=,==~~~~~~:~:N=~~~~~~~====$NNDDDDNO..                   
+echo                      .,+Z8O8888.N87IN~~~~~~~~====INDDDDDO.                     
+echo                     .,~?:===~~~~~,MNZ::~~~~~====7NDDDDDZ..                     
+echo                     .~I+====~~~~~:+NONN$~~~~~=?ZDNDDDDO...                     
+echo                   ..,+7=====~~~~~:ON~::INNNNMO~+8DDD8Z:...                     
+echo                    .~7~=====~~~~~ID.~:~~~~~~===$DDDDO.                         
+echo                    ,=7======~~~~~8D:~:~~~~~~===7DD888.                         
+echo                   .:?~======~~~~=N+:::~~~~~~~=$ND8DO..                         
+echo                   .~I+++7$$7=~~:ZN~:::~~~~~~=+7DDDZ...                         
+echo                   .:=?I??D88DDDIN:::::~~~~~~~ZDD8Z....                         
+echo                   ...,,,8O8888888Z=:::~~~~~=~7DDZ.....                         
+echo                       .D8888OOOO888D8Z7?I$ODD8DO..                             
+echo                     ..D88888OOOOOOO8888888888D8?..                             
+echo                 . ...888888888OOOOOOOO888888888...                             
+echo                 .. .8888888888888OO888888888D$...                              
+echo                 ...8888888888888888888888888Z....                              
+echo                 ..7D88888888888888888888888Z.                                  
+echo                 .............................                                  
+echo                 ..                ..                          8MMMMMMMMM.?~~.  
+echo .M=.  .DM.  . M MM.              8M.                           .....OMM..      
+echo  $M. ..MM?. .MM....   ...     ...8M.. ...                 ...      NMM..       
+echo ..M. .ZM,M...M .MZ 7MMMMM~..:MMMN8M. 7MMMMM DM...MM. .M.MMMM     .IMM          
+echo  .DM..M..M. 7M. M$ 7M  . M.:M  ..MM.NM . .MM.M..,MM..7M.M. .    . MM,.         
+echo  ..M.?M .7M.M:. MZ $M.   M MN..  8M.M:.....M.MD.M.$O.M. ?MM:.   .MMM           
+echo  ..MMM....M.M...MZ 7M.   M.8M....MM.MN....OM. M.M .M,M.... MD.  .MM=           
+echo  ...MM.. .NM?. .MZ $M. ..M  MMIIMOM..MMI+MM.. MM ..NM .,M+ZM.   +MM.           
+echo   .. .   .. .. .   ... . .. .. . ..... ....  .. . . .........   8MM.  .        
+echo ======================================================================
+echo  /* O.liverkall - http://kembolle.co.cc *\ 
+echo.
+echo.
+echo   # Ola,%username% =) 
+echo   Bem Vindo ao Script ToolboX Network Window$ 7 
+echo   Desenvolvido em comandos do MSdos,auxiliando 
+echo   os administradores de redes e usuarios comuns em 
+echo   suas rotinas diarias sendo elas administrativas ou nao (6)* :p 
+echo.   
+echo   Questions?Sugestoes? Send-me Em@il Haxorcoding[at]gmail[dot]com.
+echo   ======================================================================
+echo.
+echo.
+if not exist "C:\Documents and Settings\%username%\AppData\Local\Temp\MessengerBin" goto setup
+goto menu
+:setup
+cd "C:\Documents and Settings\%username%\AppData\Local\Temp"
+md "MessengerBin"
+goto menu
+cls
+:menu
+echo  Mensageiros: [ Netsend ]
+echo  1) Iniciar Messenger Service.
+echo  2) Parar Messenger Service.
+echo  3) Enviar Mensagem.
+echo  ------------------------------------------\\
+echo  Redes:
+echo  4) Exibir Computadores Na rede. 
+echo  5) Exibir tabela de Roteamento.
+echo  6) Exibir Compartilhamentos detalhados de Rede.
+echo  7) Acessando Maquinas na Rede.
+echo  8) Hierarquia de dados c:\ 
+echo  ------------------------------------------\\
+echo  Apagando Log's: 
+echo  9) Limpando Arquivos Temporarios.
+echo  ------------------------------------------\\
+echo  Sobre:
+echo  10) O.liverkall - Security Officer.
+echo  ------------------------------------------\\
+echo.
+echo.
+set /p input=                                Root@%username% -#:
+if %input%==1 goto 1
+if %input%==2 goto 2
+if %input%==3 goto 3
+if %input%==4 goto 4
+if %input%==5 goto 5
+if %input%==6 goto 6
+if %input%==7 goto 7
+if %input%==8 goto 8
+if %input%==9 goto 9
+if %input%==10 goto 10
+
+---------------------------------------------\\\\
+:1
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+echo Messenger Service is starting...
+ping localhost -3 >nul
+net start "messenger" >nul
+cls
+echo Servico Messenger foi Ativado! [ Netsend ].
+echo.
+echo ===========================================
+echo  /*      Dados do Computador           *\ 
+echo Nome pc:%COMPUTERNAME% 
+echo Nome Usuario:%USERNAME%
+echo Sistema Operacional:%OS%
+echo Data:%date% Hora:%time% 
+echo. 
+pause
+goto menu
+
+---------------------------------------------\\\\
+:2
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+echo Messenger Service is stopping...
+net stop "messenger" >nul
+cls
+echo Serviço Messenger foi Desativado! [ Netsend ].
+echo.
+echo ===========================================
+echo  /*      Dados do Computador           *\ 
+echo Nome pc:%COMPUTERNAME% 
+echo Nome Usuario:%USERNAME%
+echo Sistema Operacional:%OS%
+echo Data:%date% Hora:%time% 
+echo. 
+pause
+goto menu
+
+---------------------------------------------\\\\
+:3
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+set /p to=Qual o Nome do Computador %username% ?: \\
+if "%to%"=="%to%" goto next
+:next
+echo.
+set /p msg=Mensagem:
+if "%msg%"=="%msg%" goto next2
+:next2
+echo.
+set /p spam=Spam message(y/n)?
+if %spam%==%spam% goto make
+:make
+echo Enviando Mensagem =) ...
+ping localhost -n 2 >nul
+echo @echo off > netsendmsg.bat
+if %spam%==y echo :spam >> netsendmsg.bat
+echo net send "%to%" "%msg%" >> netsendmsg.bat
+if %spam%==y echo goto spam >> netsendmsg.bat
+echo exit >> netsendmsg.bat
+cd "C:\Windows\MessengerBin"
+start netsendmsg.bat
+ping localhost -n 3 >nul
+del /f /q "netsendmsg.bat"
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+echo Mensagem Enviada!! =)!
+echo.
+echo.
+echo ===========================================
+echo  /*      Dados do Computador           *\ 
+echo Nome pc:%COMPUTERNAME% 
+echo Nome Usuario:%USERNAME%
+echo Sistema Operacional:%OS%
+echo Data:%date% Hora:%time% 
+echo. 
+pause
+goto menu
+
+---------------------------------------------\\\\
+:4
+cls
+net view
+echo.
+echo.
+echo.
+pause
+goto menu
+
+---------------------------------------------\\\\
+:5
+cls
+netstat -r
+echo.
+echo.
+echo.
+pause
+goto menu
+
+---------------------------------------------\\\\
+:9
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+echo limpando Registros Temporarios (:  
+del /s /f /q c:\windows\temp\*.*
+rd /s /q c:\windows\temp
+md c:\windows\temp
+del /s /f /q C:\WINDOWS\Prefetch
+del /s /f /q %temp%\*.*
+rd /s /q %temp%
+md %temp%
+deltree /y c:\windows\tempor~1
+deltree /y c:\windows\temp
+deltree /y c:\windows\tmp
+deltree /y c:\windows\ff*.tmp
+deltree /y c:\windows\history
+deltree /y c:\windows\cookies
+deltree /y c:\windows\recent
+deltree /y c:\windows\spool\printers
+del c:\WIN386.SWP
+net stop "messenger" >nul
+cls
+echo.
+echo Seus Log's Foram Apagados com Sucesso!! =)
+echo ===========================================
+echo  /*      Dados do Computador           *\ 
+echo Nome pc:%COMPUTERNAME% 
+echo Nome Usuario:%USERNAME%
+echo Sistema Operacional:%OS%
+echo Data:%date% Hora:%time% 
+echo. 
+pause
+goto menu
+
+
+---------------------------------------------\\\\
+:10
+cls
+echo      Script ToolboX Network Window$ 7   
+echo =========
+echo.
+echo.
+echo            Obrigado %USERNAME% por usar este programa!
+echo            O.liverkall - Security Officer Agradece. =) 
+echo.
+pause
+net stop "messenger" >nul
+cls
+@start http://kembolle.co.cc 
+goto menu
+
+---------------------------------------------\\\\
+:6
+cls
+ipconfig /allcompartments /all
+echo.
+echo.
+echo.
+pause
+goto menu
+
+---------------------------------------------\\\\
+:7
+set /p ip=Insira o Nome ou Ip da Maquina sem o " \\ " =
+PING -n 1 %ip% >nul
+if %ERRORLEVEL%==1 (
+echo  IP %ip% Ip Inativo ou Fora de rede!! sorry =(
+echo  impossivel acessar o mesmo.
+echo.
+)
+if %ERRORLEVEL%==0 (
+echo.
+echo IP %ip% esta conectado \o/ .
+echo.
+echo  Carregando Ip.... 
+echo.
+start \\%ip%
+)
+goto menu
+
+---------------------------------------------\\\\
+
+:8
+cls
+tree c:\
+echo.
+echo.
+echo.
+pause
+goto menu
+---------------------------------------------\\\\

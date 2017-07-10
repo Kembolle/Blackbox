@@ -1,0 +1,60 @@
+#!/bin/bash
+    #-----------------------------------------------\\
+    version="0x01"
+    script_name="Informações de Rede"  
+    userid=$(id -u)
+    clear
+       
+    #-----------------------------------------------\\
+    echo "Testando Permissão..... "
+    # Permissão de Usuario [Root]
+    a=`whoami`
+    b="root"
+    if [ "$a" = "$b" ]
+    then
+    echo "uid=0(root) gid=0(root) groups=0(root) - Happy Hacking ;D"
+    else
+    echo "--Ops!!Script em MODO USUARIO, Execute como "root" cabeção! ;)"
+    exit 1
+    fi
+    sleep 2
+    #-----------------------------------------------\\
+     
+     
+    #---------// Cabeçalho.
+    echo '
+    [+]===================================================================[+]
+    Informações de Rede Version:'$version'
+    Autor: Kembolle Amilkar A.K.A. O.liverkall
+    language:Portuguese     |      Data: 27 / 11 / 2016
+           __________________
+          /\  ______________ \
+         /::\ \ZZZZZZZZZZZZ/\ \  
+        /:/\.\ \        /:/\:\ \  
+       /:/Z/\:\ \      /:/Z/\:\ \
+      /:/Z/__\:\ \____/:/Z/  \:\ \
+     /:/Z/____\:\ \___\/Z/    \:\ \  
+     \:\ \ZZZZZ\:\ \ZZ/\ \     \:\ \  
+      \:\ \     \:\ \ \:\ \     \:\ \
+       \:\ \     \:\ \_\;\_\_____\;\ \
+        \:\ \     \:\_________________\
+         \:\ \    /:/ZZZZZZZZZZZZZZZZZ/
+          \:\ \  /:/Z/    \:\ \  /:/Z/
+           \:\ \/:/Z/      \:\ \/:/Z/
+            \:\/:/Z/________\;\/:/Z/
+             \::/Z/________x86_\/Z/
+              \/ZZZZZZZZZZZZZZZZZ/
+                                     
+    Dependências:
+    #/ Wget - https://packages.debian.org/pt-br/wheezy/wget 
+ '
+echo   [+]===================================================================[+] 
+echo Endereço de IP Interno 
+hostname -I | awk '{ print $1 }'
+
+echo Endereço de IP Externo IPV4 
+wget -q -O - http://ipv4.icanhazip.com/ | tail 
+
+echo Endereço de IP Externo IPV6  
+wget -q -O - http://icanhazip.com/ | tail 
+echo   [+]===================================================================[+]
