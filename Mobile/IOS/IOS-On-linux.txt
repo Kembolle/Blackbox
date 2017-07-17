@@ -61,23 +61,18 @@
     read opcao 
     case $opcao in
     1) PPA ;;
-    2) Atualiza ;;
+    2) instalação ;;
     3) Reeiniciar ;;
     4) applefly ;;
     5) Montar ;;
-    6) update ;;
-    *) "Opção desconhecida." ; echo ; Principal ;;
+     *) "Opção desconhecida." ; echo ; Principal ;;
   esac
 }
 
-update() {
-	     sleep 3
-	apt-get update
-Principal 
-} 
+ 
 
 
-PPA() {
+1() {
     
      sleep 3
      echo "[+]========================================[+]"
@@ -88,7 +83,7 @@ PPA() {
 } #---------//  
 
 
-Atualiza() {
+2() {
  
     sleep 3
      echo "[+]========================================[+]"
@@ -103,7 +98,7 @@ Atualiza() {
 } #---------// 
  
 
-Reeiniciar() {
+3() {
 
     sleep 3
     echo "[+]========================================[+]"
@@ -113,7 +108,7 @@ Reeiniciar() {
 } #---------// 
 
 
-applefly() {
+4() {
 
 	sleep 3
      echo "[+]========================================[+]"
@@ -124,7 +119,7 @@ applefly() {
 
 
 
-Montar() {
+5() {
 
      sleep 3
      echo "[+]========================================[+]"
