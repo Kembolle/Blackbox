@@ -1,0 +1,3 @@
+ psexec \\$ComputerName -s -h -d powershell Enable-PSRemoting -Force
+
+

@@ -1,0 +1,1 @@
+psexec \\IP -s powershell Enable-PSRemoting -Force

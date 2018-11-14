@@ -1,0 +1,7 @@
+sh -c "dnstracer;sudo-s"
+bash -c "cd /usr/share/sqlmap; ./sqlmap"
+bash -c "dnsenum --help;${SHELL:-bash}"
+java -jar CaminhodoJAR.jar
+
+
+
