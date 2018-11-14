@@ -1,0 +1,67 @@
+Diagnostic Policy Service
+Plug and Play
+Windows Remote Management
+Remote Desktop Services UserMode Port Redirector
+Portable Device Enumerator Service
+SNMP Trap
+SQL Server VSS Writer
+Windows Time
+User Profile Service
+Windows Font Cache Service
+nxlog
+Desktop Window Manager Session Manager
+WinHTTP Web Proxy Auto-Discovery Service
+SNMP Service
+Cryptographic Services
+SPP Notification Service
+Windows Update
+Virtual Disk
+Event log
+DHCP Client
+FreeSSHDService
+Windows Management Instrumentation
+Diagnostic System Host
+Remote Desktop Services
+Certificate Propagation
+Distributed Transaction Coordinator
+Software Protection
+SNARE
+Windows Modules Installer
+Windows Firewall
+ServiceLayer
+VMware Upgrade Helper
+WMI Performance Adapter
+Windows Event Log
+Volume Shadow Copy
+VMware Tools Service
+Power
+Windows Error Reporting Service
+Windows Installer
+Winrm
+Sony PC Companion
+Shell Hardware Detection
+Microsoft Software Shadow Copy Provider
+CYGWIN sshd
+System Event Notification Service
+Distributed Link Tracking Client
+Print Spooler
+IPsec Policy Agent
+Application Experience
+Group Policy Client
+Apache Web Server
+Internet Information Server
+SSHD
+Exchange
+Mail
+Email
+SMTP
+POP3
+DHCP
+Monitoring
+User management
+Network
+Policy management
+Kernel
+USB monitoring
+NTP
+Disk encryption

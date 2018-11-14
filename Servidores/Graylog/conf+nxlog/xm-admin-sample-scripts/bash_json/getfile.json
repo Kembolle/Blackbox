@@ -1,0 +1,9 @@
+{
+	"msg": {
+		"command": "getFile",
+		"params": {
+			"filetype": "conf",
+			"filename": "nxlog.conf"
+		}
+	}
+}

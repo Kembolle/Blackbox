@@ -1,0 +1,54 @@
+[[mongodb_perl_input]]
+= MongoDB integration using im_perl
+
+This script can be used with NXLog to pull data from a MongoDB database.
+This section describes how to use NXLog and generate logs from a MongoDB input.
+
+
+[[mongodb_perl_input_config]]
+== Configuring NXLog
+
+The im_perl module is used to execute the perl script that will pull the
+data from the MongoDB database. For simplicity, in the configuration below 
+the output is saved to a file. 
+
+[source,config]
+----
+include::../nxlog.conf[]
+----
+
+=== Test case
+
+I this test case, a JSON data set of US zip (postal) codes was used. It was 
+downloaded from http://jsonstudio.com/resources/. The data set can be fed 
+to MondoDB using the following command:
+
+[source,bash]
+----
+$ mongoimport -d zips -c zips --file zips.json
+----
+
+The perl script is constructed in such a way that when new documents are available
+in the database, it will first sort them by ObjectId, process them sequentically 
+and pass them to NXLog by calling `Log::Nxlog::add_input_data()`. Finally, the
+document is deleted from the collection. The script will poll the database 
+continuously by setting a timer `Log::Nxlog::set_read_timer()`. In the event that
+the MongoDB server is unreachable, ( hence an exception is thrown while trying to
+manipulate the data ) the timer is set to a different value so that the connection 
+can be reestablished at a later time.
+
+
+==== Sample Input and Output
+
+This is sample input and output using the US zip data set.
+
+[source,json]
+----
+include::sample.json[]
+----
+
+[source,output]
+----
+include::sample.out[]
+----
+

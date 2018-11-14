@@ -1,0 +1,8 @@
+{
+	"msg": {
+		"command": "moduleInfo",
+		"params": {
+			"name": "xm_soapadmin"
+		}
+	}
+}

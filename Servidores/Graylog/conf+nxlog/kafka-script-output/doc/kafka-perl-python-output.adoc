@@ -1,0 +1,59 @@
+[[kafka_script_output]]
+= Kafka output using perl or python
+
+While NXLog has a dedicated Apache Kafka producer module (om_kafka), it is 
+possible to implement the same functionality using the perl (om_perl) or 
+python (om_python) output modules. While this might be an inferior solution, 
+judged on efficiency, it is also a more flexible one when a more complex 
+scenario needs to be addressed.
+
+
+[[kafka_perl_output]]
+== Kafka poducer using perl
+
+The following are a sample perl script and the necessary configuration
+needed for NXLog, to read messages from a file and publish event records
+to a Kafka topic.
+
+NOTE: This implementation is using Alex Solovey's Apache Kafka interface
+for Perl and at the time of writing, SSL support is not implemented.
+This module is available at: http://search.cpan.org/~asolovey/Kafka/
+
+
+.Configuration file for NXLog
+[source,config]
+----
+include::../perl/nxlog.conf[]
+----
+
+.Perl script publishing to Kafka
+[source,perl]
+----
+include::../perl/kafka-perl-output.pl[]
+----
+
+[[kafka_python_output]]
+== Kafka poducer using python
+
+The following are a sample python script and the necessary configuration
+needed for NXLog, to read messages from a file and publish event records
+to a Kafka topic.
+
+NOTE: This implementation is using Dana Power's Apache Kafka interface
+for Python. This differs from the python-kafka package provided for
+Debian based systems. However the module can be installed using the 
+command `pip install kafka-python`. 
+This module is available at: https://github.com/dpkp/kafka-python
+
+
+.Configuration file for NXLog
+[source,config]
+----
+include::../python/nxlog.conf[]
+----
+
+.Python script publishing to Kafka
+[source,perl]
+----
+include::../python/kafka-python-output.py[]
+

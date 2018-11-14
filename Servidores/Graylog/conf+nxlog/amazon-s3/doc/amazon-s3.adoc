@@ -1,0 +1,206 @@
+[[amazon_s3_support]]
+= Amazon S3 integration using (i|o)m_python
+
+NXLog can both send and receive events to and from an Amazon S3 cloud object
+storage. The NXLog python modules for input and output are used (`im_python` and
+`om_python`) as well as boto3 the AWS SDK for Python. More information about
+`boto3` can be found at https://aws.amazon.com/sdk-for-python/
+
+
+[[amazon_s3_config]]
+== Configuring boto3 
+
+The first step is to install and configure boto3 into your system.
+Boto3 can be installed can using `pip` or your package manager respectively.
+
+.Using pip
+[source,bash]
+----
+$ pip install boto3
+----
+
+.Using the package manager of a Debian based distro
+[source,bash]
+----
+# apt-get install python-boto3
+----
+
+.Using the package manager of a Red Hat based distro
+[source,bash]
+----
+# yum install python2-boto3
+----
+NOTE: `python2-boto3` package requires the installation of EPEL repository.
+
+After creating an AWS service account, your local setup requires some 
+configuration. Two files responsible for selecting the default region
+as well as your credentials must be created. This can be done interactively, 
+if you have the AWS CLI installed or manually, by editing the files shown 
+bellow. Credentials for your AWS account can be found in the IAM Console. 
+You can create or use an existing user. Go to manage access keys and generate 
+a new set of keys.
+
+.~/.aws/config
+[source,config]
+----
+[default]
+region=eu-central-1
+----
+
+.~/.aws/credentials
+[source,bash]
+----
+[default]
+aws_access_key_id = YOUR_ACCESS_KEY
+aws_secret_access_key = YOUR_SECRET_KEY
+----
+
+More information about the initial setup and the credentials can be found
+at https://boto3.readthedocs.io/en/latest/guide/quickstart.html 
+and https://boto3.readthedocs.io/en/latest/guide/configuration.html
+
+NOTE: The region and credential configuration can also be hardcoded in the
+code however, this is not considered a good practice.
+
+[[amazon_s3_explained]]
+== AWS S3 Buckets, objects, keys and structure
+
+Both the input and output python scripts interact with a bucket on Amazon S3.
+The scripts will not create, delete or alter the bucket and any of its properties,
+permissions or management options. It is the responsibility of the user to create
+the bucket, provide the appropriate permissions (ACL) and further configure any 
+options like lifecycle options, replication options, encryption, etc. Similarly,
+the scripts do not alter the storage class of the objects stored or any other 
+properties or permissions. General information about Amazon S3 can be found at
+https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html
+and the Amazon S3 console at 
+https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html
+
+Amazon S3 stores objects inside containers called buckets. There is a finite
+number of buckets that you can have and an infinite number of objects that
+you can store. We selected a schema where we store events on a single bucket
+and each object has a key that references the server (or service) name, the date
+and the event received time. Even though Amazon S3 uses a flat structure to
+store object, objects with similar key prefixes are grouped together resembling
+the structure of a file system. The following is a visual representation of
+the naming scheme used. Note that the key name in the deepest level represent
+time, however Amazon S3 uses the `:` character as a special character and to
+avoid escaping we selected the `.` character to substitute it.
+
+* MYBUCKET/
+** SERVER01/
+*** 2018-05-17/
+**** 12.36.34.1
+**** 12.36.35.1
+*** 2018-05-18/
+**** 10.46.34.1
+**** 10.46.35.1
+**** 10.46.35.2
+**** 10.46.36.1
+** SERVER02/
+*** 2018-05-16/
+**** 14.23.12.1
+*** 2018-05-17/
+**** 17.03.52.1
+**** 17.03.52.2
+**** 17.03.52.3
+
+[[amazon_s3_output]]
+== Storing events to Amazon S3
+
+This section explains the python script and NXLog configuration needed to
+store events to an Amazon S3 cloud object storage.
+
+Configure NXLog similarly to the following. For simplicity we are reading events
+from a file.
+
+.nxlog.conf
+[source,config]
+----
+include::../output/nxlog.conf[]
+----
+
+The python script used to store events on Amazon S3.
+
+.s3_write.py
+[source,python]
+----
+include::../output/s3_write.py[]
+----
+
+Edit the `BUCKET` and `SERVER` variables on the code. Events are stored in
+the Amazon S3 bucket with object key names comprised from the server name,
+date in YYYY-MM-DD format, time in HH.MM.SS format, plus a counter since events
+can be received on the same second.
+
+[[amazon_s3_input]]
+== Retreving events from Amazon S3
+
+This section explains the python script and NXLog configuration needed to
+retrieve events from an Amazon S3 cloud object storage.
+
+Configure NXLog similarly to the following. For simplicity we are saving events
+to a file.
+
+.nxlog.conf
+[source,config]
+----
+include::../input/nxlog.conf[]
+----
+
+.s3_read.py
+[source,python]
+----
+include::../input/s3_read.py[]
+----
+
+Edit the `BUCKET` and `SERVER` variables on the code. The `POLL_INTERVAL` is
+the time the script will wait before checking again for new events. The
+`MAXKEYS` variable should be fine in all cases as the default value of 1000
+keys. The script keeps track of the last object retrieved from Amazon S3 by 
+means of a file called `lastkey.log`, stored locally. Even in the event of an 
+abnormal termination the script will continue from where it stopped. 
+You can delete (or even edit) the `lastkey.log` file to reset that behavior.
+
+[[amazon_s3_extras]]
+=== Serialization and compression
+
+In the previous examples only the `raw_event` field was stored in the objects.
+An easy way to store more than one field is to "pickle" (better known as
+serialize or marshal) them together. The following lines of python code show
+how to do so for all the fields of an event.
+
+.Pickle events
+[source,python]
+----
+import pickle
+
+
+
+all = {}
+for field in event.get_names():
+     all.update({field: event.get_field(field)})
+
+newraw = pickle.dumps(all)
+
+client.put_object(Body=newraw, Bucket=BUCKET, Key=key)
+----
+
+
+Compressing the events with gzip is also possible. The following python
+code explains how to do so.
+
+.Gzip events
+[source,python]
+----
+import StringIO
+import gzip
+
+out = StringIO.StringIO()
+with gzip.GzipFile(fileobj=out, mode="w") as f:
+     f.write(newraw)
+
+gzallraw = out.getvalue()
+
+client.put_object(Body=gzallraw, Bucket=BUCKET, Key=key)
+----

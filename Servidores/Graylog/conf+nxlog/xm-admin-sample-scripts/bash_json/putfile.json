@@ -1,0 +1,10 @@
+{
+	"msg": {
+		"command": "putFile",
+		"params": {
+			"filetype": "tmp",
+			"filename": "test.tmp",
+			"file": "This is my file\nNewline\n"
+		}
+	}
+}

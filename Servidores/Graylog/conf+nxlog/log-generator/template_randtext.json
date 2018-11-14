@@ -1,0 +1,1 @@
+{"MessageSourceAddress":"@IP4ADDRESS@","EventReceivedTime":"@TIMESTAMP-ISO@","SourceModuleName":"@NXLOGMODULENAME@","SourceModuleType":"@NXLOGMODULETYPE@","SeverityValue":@SEVERITYVALUE@,"Severity":"@SEVERITY@","Hostname":"@HOSTNAME@","EventTime":"@TIMESTAMP-ISO@","AccountName":"@USERNAME@","rawEvent":"@TIMESTAMP-ISO@ @HOSTNAME@ @TEXT@ User-Name=@USERNAME@"}

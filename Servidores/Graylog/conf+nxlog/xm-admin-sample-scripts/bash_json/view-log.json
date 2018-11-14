@@ -1,0 +1,9 @@
+{
+	"msg": {
+		"command": "getLog",
+		"params": {
+                        "size": -1
+                }
+		}
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"msg": {
+		"command": "moduleStop",
+		"params": {
+                        "name": "xm_soapadmin"
+                }
+	}
+}
