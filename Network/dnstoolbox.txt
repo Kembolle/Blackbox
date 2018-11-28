@@ -3,9 +3,7 @@
     version="0x01"
     script_name="DNS ToolboX Discover  "
     userid=$(id -u)
-    clear
-     
-     
+    clear    
     #-----------------------------------------------\\
     echo "Testando Permissão..... "
     # Permissão de Usuario [Root]
