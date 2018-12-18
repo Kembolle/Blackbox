@@ -1,0 +1,1 @@
+nmap localhost -oX scan.xml && xsltproc scan.xml -o teste.html
