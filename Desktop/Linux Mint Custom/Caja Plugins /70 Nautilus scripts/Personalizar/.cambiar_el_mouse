@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Script para cambiar el tema de cursor en /usr/share/icons #
+# En la linea 11 y 21 columna 12, del archivo, debes cambiar `whoami` por tu
+# nombre de usuario. Para saber tu nombre de usuario lanza el
+# comando:  whoami , y cambiar donde `whoami` por el nombre que aparece.
+# Recomendado gcursor_0.061-ubuntu4
+# Eres libre de modificarlo y redistribuirlo
+# por  Rodrigo Esteves baitsart@gmail.com www.youtube.com/user/baitsart
+
+sudo -E -u `whoami` gcursor &
+# 
+## muestra un lista de temas para elegir
+
+
+CHOICE=$(ls -R /usr/share/icons | grep "\/cursors:" | sed -e 's/\/cursors://g' -e 's/\/usr\/share\/icons\///g' | zenity --list --width="65" --height="515" --text "Selecciona un cursor" --title "Tema de cursor" --column "Cursor")
+
+
+#
+## Cambia al cursor seleccionado,
+sudo -E -u `whoami` gsettings set org.gnome.desktop.interface cursor-theme "$CHOICE" 
+
+echo "[Icon Theme]
+Inherits="$CHOICE"" > /usr/share/icons/default/index.theme
+
+
+if (zenity --info --title="Reiniciar ahora?" --text "El cursor $CHOICE se ha
+seleccionado, debe reiniciar
+para ver los cambios .
+
+ Pulse 'Aceptar' Si desea reiniciar,
+ de lo contrario dele a cerrar. Antes
+ de reiniciar debe guardar su trabajo
+ o se perderán los cambios.")
+then 
+	gksu service lightdm restart
+
+else
+exit 1
+fi
+exit 0

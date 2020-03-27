@@ -1,0 +1,5 @@
+#!/bin/bash
+# script by Orlando De Giorgi
+
+convert -rotate 90 $1 $1
+

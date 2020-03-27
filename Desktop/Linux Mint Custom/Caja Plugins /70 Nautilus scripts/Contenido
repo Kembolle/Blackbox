@@ -1,0 +1,166 @@
+Lista de contenido, y descripción:
+
+DIRECTORIO, APLICACIÓN:		|CARACTERÍSTICAS:
+------------------------------------------------------------------------Personalizar:			|
+------------------------------------------------------------------------
+.randomer-file: |Archivo oculto, dependencia de change
+		|wallpaper.
+
+Cambiar el mouse |Le introducimos el nombre del tema de mouse y lo activará
+.cambiar_el_mouse		
+
+change-wallpaper: |Pone de wallpaper una imagen al azar
+
+create xml background: |Crea un archivo xml, de un directorio
+                       |de imágenes, y hace fondo rotatorio 
+
+Imagen wallpaper: |Selecciona, una imagen, o un archivo 
+		  |xml como wallpaper
+
+random-nasa-wallpaper.pl: |Descarga la imagen del día de la Nasa 
+			  |y la pone como wallpaper
+
+vídeo Wallpaper: |Pone un vídeo, o un xscreensaver como 
+		 |wallpaper
+------------------------------------------------------------------------
+Archivos:
+------------------------------------------------------------------------
+/ISO Manager:
+	/Create ISO:|Crear una imagen iso
+	/ISO Mount: |Montar una imagen iso
+	/ISO unMount: |Desmontar una imagen iso
+
+Abrir con gedit
+
+Abrir con gedit (como root): |Editor de texto con privilegios de root
+
+
+Encrypt-Decrypt|
+
+
+Examinar como root: |Abrir directorios como root
+
+
+Make Executable	:|Dar permisos de ejecutar como programa
+
+
+Search Here			|
+
+Split File: |Dividir un archivo en varias partes
+
+to UTF8: |Cambiar la codificación de caracteres a utf-8
+to ISO8859-15: |Cambiar la codificación de caracteres a iso-8859
+         ------------------------------------------------------------------------
+Mover...
+------------------------------------------------------------------------
+Mover a Descargas
+Mover a Documentos
+Mover a Imágenes
+Mover a Música
+Mover a Vídeos
+Mover a..	      |Selecciona la carpeta de destino
+
+      /Copiar hacia
+Copiar a Descargas
+Copiar a Documentos
+Copiar a Imágenes
+Copiar a Música
+Copiar a Vídeos
+Copiar a..	      |Selecciona la carpeta de destino
+
+      /Enlazar a...
+Enlazar a..	      |Selecciona la carpeta de destino
+
+------------------------------------------------------------------------
+Multimedia:
+------------------------------------------------------------------------
+/Converter
+	/Audio files converter
+
+	/Extraer mp3: |Funciona con mencoder
+
+	/Sub Mov: |Seleccionar un vídeo avi y un archivo 
+                  |srt para subtitular
+
+	/Subtitulador: |Pega subtítulos a todos los vídeos de
+                       |una carpeta si tiene el archivo de 
+                       |subtítulo srt con el mismo nombre
+
+	/.scriptsubtitular:|Archivo oculto. Dependencia de Subtitular
+
+	/video2gif: |Convertir video en gif
+	
+	/vídeo Converter: |Puede convertir en varios formato de
+                          |vídeo
+
+	/vídeo_convert_simple: |Convertir en formato avi para DVD'S
+
+Add to playlist (totem): |Añadir a lista de reproducción de totem
+
+mplayer:|reproductor simple
+
+Radio: |Seleccione de una lisa personalizada
+       |de radios para escuchar
+.radio_web: | dependencia de Radio
+Random-Music.sh | Nos ofrece escuchar, (con mplayer) la música del 
+                | directorio en el que estamos, indicar el directorio,
+                |  o todo lo de ~/Música, de modo shuffle, o normal.
+.random-Music.sh | dependencia de Random-Music.sh
+------------------------------------------------------------------------
+Imagen
+------------------------------------------------------------------------
+/Balance y posicisión:|Aspecto de la imágenes
+	-contrast
+	+contrast 
+	flip 
+	flop 
+	gamma 1.4 
+	grigio 
+	rotate -90
+	rotate +90 trim
+/Image Converter:|Formatos
+	bmp
+	jpg
+	png
+	tif
+/Scale Image
+	Scale Image: |Escala una imagen a un tamaño que se 
+                     |indique
+	Scale Image To Sizes:|Escala a varios tamaños ofrecidos
+Comprimir PDF
+
+Nautilus PDF Tools: |Herramienta de manipulación de PDF
+
+PDFjoin: |Unir archivos pdf
+
+Photo Converter: |Complejo conversor de imagen
+------------------------------------------------------------------------
+Internet
+------------------------------------------------------------------------
+/Naveagdor Browser
+	/browser.py: |Navegador web en python
+
+	/inspector.pyc: |No son ejecutables, por eso no 
+        /inspector.py   |figurarán en el menú, y son una 
+                        |dependencia de browser.py
+
+Downlader link:	|Descarga los enlaces directamente
+
+Upload To YouTube: |Para subir vídeos a youtube
+
+YouTube-DL: |Solo para ingresar el link y descarga el 
+            |vídeo con su título original
+
+YouTube-DL(cc): |Opción de descargar el vídeo, o el video
+                |y el archivo de subtítulo, close-caption de youtube
+
+youtube-songs: |Descarga el video para extraer el audio 
+               |y conservar solo el audio
+------------------------------------------------------------------------
+TurnOff	: |Apagar la pc
+/.para-apagar-la-pc: |Dependencia de TurnOff
+
+saytime: Dice la fecha y hora
+------------------------------------------------------------------------
+proteger_y_desproteger.tar.gz: |Descomprimir, y seguir la indicaciones. Su función es bloquear archivos, o carpetas con nuestra contraseña de usuario. 
+

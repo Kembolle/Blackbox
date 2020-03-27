@@ -1,0 +1,2 @@
+#!/bin/bash
+gksu $HOME/.gnome2/nautilus-scripts/Personalizar/.cambiar_el_mouse

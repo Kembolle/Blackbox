@@ -1,0 +1,9 @@
+#!/bin/bash
+FILE=`echo -n $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS`
+
+DESTINO=$HOME/Música
+cp -uR "$@" "$DESTINO"
+exit
+
+
+

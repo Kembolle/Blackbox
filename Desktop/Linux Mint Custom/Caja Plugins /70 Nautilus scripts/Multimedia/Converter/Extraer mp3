@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Get current path
+mypath="`pwd`"
+for filename in "$@"
+do
+mencoder "$mypath/$filename" -of rawaudio -oac mp3lame -ovc copy -o "$mypath/$filename.mp3"
+
+done
+#!/bin/sh
+
+

@@ -1,0 +1,2 @@
+#!/bin/sh
+gksu ~/.gnome2/nautilus-scripts/.para-apagar-la-pc

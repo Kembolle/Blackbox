@@ -1,0 +1,136 @@
+=== Changed / Fixed
+--- Removed
++++ Added
+______________________________________________________________________________
+
+
+@@@@@@@ SystemClean v2.3 @@@@@@@
+
++ Polish translation (by: Janusz)
++ German translation (by: Peter van Evert)
+
+
+@@@@@@@ SystemClean v2.2 @@@@@@@
+
+= Fixed clean cache (Firefox, Mozilla Nightly)
++ Adding option to delete temp files system (directory /tmp/)
+
+
+@@@@@@@ SystemClean v2.1 @@@@@@@
+
+= 'SystemClean' script removed from folder '.gnome2/nautilus-scripts' to '.systemclean' folder
++ More options to clean programs cache (AceStream, Thunderbird)
++ Chinese translation (by: 长孙弘奕)
+
+
+@@@@@@@ SystemClean v2.0 @@@@@@@
+
+= Changed optimization of SystemClean (in startup and in results)
+= Fixed clean cache (Java, Miro, Chromium)
+= Changed the notification if there is a newer version SystemClean
++ More options to clean programs cache (Chrome, Flash_Player, Guayadeque, Icedtea, Recently-used, TorChat, Vidalia_tor)
++ Adding option to delete System Logs (directory /var/log/)
++ Support more old kernel packages to delete
+- Remove options to clean programs cache (aMSN, Emesene, Libreoffice, Openoffice.org)
+
+
+@@@@@@@ SystemClean v1.9 @@@@@@@
+
+= Fixed clean cache (Firefox, Google earth)
+= Systemclean open with terminal
+= Changed optimization of Setup
++ More options to clean programs cache (Mozilla Nightly, Vlc, Transmission)
++ Adding options to delete old kernel packages
++ Adding log with deletes cache and packages in results
+- Remove setup Unity
+
+
+@@@@@@@ SystemClean v1.8 @@@@@@@
+
+= Fixed clean root Trash
+= Fixed clean system for newer versions (must be run script with terminal)
++ Adding check if is installed aptitude package
++ Adding setup Unity (for newer versions)
+
+
+
+@@@@@@@ SystemClean v1.7 @@@@@@@ 
+
+= Fixed clean cache browsers (Firefox, Seamonkey, Swiftweasel) of all profiles
+= Changed code optimization of setup file
+= Fixed some translation words
++ Adding option to clean filesystem memory cache
++ More options to clean programs cache
++ Adding About SystemClean in results of cleaning
+
+
+
+@@@@@@ SystemClean v1.6.1 @@@@@@
+
+= Fixed notification if there is a newer version SystemClean
+
+
+
+@@@@@@@ SystemClean v1.6 @@@@@@@
+
+= Changed to clean your system with list options
+= Changed with simple results in the end of the session
+= Changed code optimization
++ Japanese translation (by: starcycle)
++ Dutch translation (by: Jonathan Moerman)
+
+
+
+@@@@@@@ SystemClean v1.5 @@@@@@@
+
+= Fixed some window dimensions
+= Fixed some translation words
+= Fixed clean cache wallpapers
++ More options to clean programs cache
++ Russian translation (by: Jalkoby)
++ Romanian translation (by: Tuhut Vladut Emanuel)
+
+
+
+@@@@@@@ SystemClean v1.4 @@@@@@@
+
++ Add automatic notification if there is a newer version SystemClean
++ Adding all languages supported SystemClean to setup file
+
+
+
+@@@@@@@ SystemClean v1.3 @@@@@@@
+
+= Fixed some translation words
+= Fixed clear cache thumbnails
++ Adding setup language systemclean
++ More options to clean programs cache
++ Turkish translation (by: Ogün ÇAKIR)
+
+
+
+@@@@@@@ SystemClean v1.2 @@@@@@@
+
+= Fixed clean cache compiz with new 3d compiz plugins
++ Add log when run SystemClean
++ French translation (by: Ismaël BALLO)
++ Galician translation (by: Marcos Lans)
++ Brazilian Portuguese translation (by: C.Rodrigues)
+
+
+
+@@@@@@@ SystemClean v1.1 @@@@@@@
+
++ Croatian translation (by: Petar Kulić)
++ Polish translation (by: kornicameister)
++ Italian translation (by: Naf71)
++ Add results of cleaning
++ More options to clean programs cache
+
+
+
+@@@@@@@ SystemClean v1.0 @@@@@@@
+
++ First version of SystemClean
++ Spanish translation (by: Fernando Bernal)
+

@@ -1,0 +1,1 @@
+Éstos scripts no sobrescriben el archivo final, en cambio si ya existe un archivo con el mismo nombre, cancelará la operación.

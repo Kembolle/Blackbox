@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# AUTHOR:	(c) Eugenio F. <eug.alfe@gmail.com>
+# VERSION:	1.4
+# LICENSE:	GPL (http://www.gnu.org/licenses/gpl.html)
+# REQUIRES:	mkisofs/genisoimage and zenity
+# NAME:		Create ISO
+# INSTALLATION: Copy to the "~/.gnome2/nautilus-scripts" directory
+# DESCRIPTION:	Create a iso file from directory or file.
+
+for File in "$@"
+do
+IFS=""
+	if [ -d "$File" ]; then
+		genisoimage -J -joliet-long -allow-lowercase -allow-limited-size -R -iso-level 4 -o "$File.iso" $File 2>&1 \
+		| sed -u 's/.* \(.*[0-9]\)\.\([0-9]\+%\)\(.*\)/\1\n# Completed\t\t\t\t\t\t\t\t\t\t\t\t\1.\2/' \
+		| zenity --progress --width="430" --auto-kill --title="Creating \"$File.iso\"" 2> /dev/null
+	else
+		genisoimage -allow-limited-size -r -o "$File".iso "$File" 2>&1 \
+		| sed -u 's/.* \(.*[0-9]\)\.\([0-9]\+%\)\(.*\)/\1\n# Completed\t\t\t\t\t\t\t\t\t\t\t\t\1.\2/' \
+		| zenity --progress --width="430" --auto-kill --title="Creating \"$File.iso\"" 2> /dev/null
+	fi;
+done
+

@@ -1,0 +1,57 @@
+#!/bin/sh
+
+video()
+{
+echo
+	
+var=`zenity --entry --title="YouTubeDL" --text="Ingrese el link del video youtube que va a descargar:"`
+
+{
+if [ $? = 0 ] ; then
+
+youtube-dl -t "$var" | zenity --progress --pulsate --auto-close --auto-kill --title="YouTubeDL" --text="Descargando el archivo $var !"
+	fi
+}
+}
+
+subtitulo()
+{
+echo
+	
+var=`zenity --entry --title="YouTubeDL(cc)" --text="Ingrese el link del video youtube que va a descargar:"`
+
+{
+if [ $? = 0 ] ; then
+
+youtube-dl -t --write-srt "$var" | zenity --progress --pulsate --auto-close --auto-kill --title="YouTubeDL(cc)" --text="Descargando el archivo $var subtitulado !"
+	fi
+}
+}
+
+dialogo_principal()
+{
+	# video_solo o con_subtitulo
+	opcion=$( zenity --list --radiolist --title="Video solo o con subtitulo" \
+					--column='Pick' --column='Opción'  \
+					'FALSE' 		"con_subtitulo" \
+					'FALSE' 		"video" )
+}
+
+inicio()
+{
+	dialogo_principal
+	if [ ${opcion} = 'video' ]; then
+		video
+	elif [ ${opcion} = 'con_subtitulo' ]; then
+		subtitulo
+	else
+		echo "Error en selección."
+		exit 1
+	fi
+}
+
+#Llamado a función principal
+inicio
+zenity --info --title="YouTubeDL" --text="Descarga terminada! $var  Script YouTubeDL"
+exit 0
+

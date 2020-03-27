@@ -1,0 +1,113 @@
+#!/bin/bash
+
+
+
+V="$PWD"
+FILES=.file-$RANDOM
+DEBUG=y
+
+
+#GETTEXT
+export TEXTDOMAIN="xml-background-creator"
+#
+
+
+#finishing script function
+die() {
+	local F=$1
+	rm -f $F
+	echo "Exiting..."
+	exit 0
+}
+
+
+echo ${DEBUG:+"The temp file is $FILES."}
+echo ${DEBUG:+"Searching images in $V."}
+
+#searching for files
+for EXT in jpg jpeg png gif; do
+	find "$V" -iname "*.$EXT" | sort -d >> $FILES
+done
+
+LINES=$(wc -l < "$FILES")
+
+if [ $LINES -eq 0 ]; then
+	echo ${DEBUG:+"No images was found in the directory."}
+	zenity --error --text "$(gettext "No images found!")"
+	die $FILES
+fi
+
+TIME=$(zenity --scale --title "$(gettext "Time configuration")" --text \
+"$(gettext "Length of wallpaper (minutes)")" --min-value=1 --max-value=120 --value=5)
+[ $? -ne 0 ] && die $FILES
+echo ${DEBUG:+"The time was set to $TIME minutes."}
+
+TIME=$(($TIME*60))
+
+ANIMATION=$(zenity --scale --title "$(gettext "Time configuration")" --text \
+"$(gettext "Length of animation (seconds)")" --min-value=1 --max-value=10 --value=5)
+[ $? -ne 0 ] && die $FILES
+echo ${DEBUG:+"The animation time was set to $ANIMATION seconds."}
+
+until [ -n "$NAMEXML" ]; do
+	NAMEXML=$(zenity --entry --entry-text "background" --text \
+"$(gettext "Input the name of .xml background file")")
+	[ $? -ne 0 ] && die $FILES
+	[ -z "$NAMEXML" ] && echo ${DEBUG:+"Invalid name, trying again."}
+done
+
+BACK="$NAMEXML.xml"
+echo ${DEBUG:+"The name of the xml file is $BACK."}
+echo ${DEBUG:+"Creating the xml file."}
+
+echo "<!-- GENERATED WITH XML BACKGROUND CREATOR SCRIPT (xmlback) -->" > "$BACK"
+
+echo "<background>
+  <starttime>
+    <year>2009</year>
+    <month>08</month>
+    <day>04</day>
+    <hour>00</hour>
+    <minute>00</minute>
+    <second>00</second>
+  </starttime>" >> "$BACK"
+
+
+for ((i = 2; i <= $LINES; ++i)); do
+	FROM=$(sed -n "$(($i-1))p" "$FILES")
+	TO=$(sed -n "${i}p" "$FILES")
+	echo "  <static>
+    <duration>$TIME.0</duration>
+    <file>$FROM</file>
+  </static>
+  <transition>
+    <duration>$ANIMATION.0</duration>
+    <from>$FROM</from>
+    <to>$TO</to>
+  </transition>" >> "$BACK"
+done
+
+FROM=$(sed -n 1p $FILES)
+
+echo "  <static>
+    <duration>$TIME.0</duration>
+    <file>$TO</file>
+  </static>
+  <transition>
+    <duration>$ANIMATION.0</duration>
+    <from>$TO</from>
+    <to>$FROM</to>
+  </transition>" >> "$BACK"
+echo "</background>" >> "$BACK"
+echo ${DEBUG:+"The xml file was created."}
+
+zenity --question --text "$(gettext "Do you want to put the .xml file as background?")"
+OPTION=$?
+ 
+if [ $OPTION -eq 0 ]; then
+	echo ${DEBUG:+"Putting the $BACK file as background."}
+	gsettings set org.gnome.desktop.background picture-uri file:///"$V"/"$BACK"
+fi
+
+echo ${DEBUG:+"Deleting the temp file and finishing the execution."}
+die $FILES

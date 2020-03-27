@@ -1,0 +1,72 @@
+With this script you can clean the system from unnecessary files.
+Not affect the settings of either the system or any program!
+
+SystemClean
+-----------
+System mean: 
+- autoremove
+- clean
+- autoclean
+- Clean unneeded files - Completely uninstall the programs were not fully removed | Clean all apt cache
+- Clean all lists packages break down. *(You must have internet connection for this choice)*
+- System_Logs - /var/log/ ~ Delete all system logs in directory /var/log/. Be sure that maybe you want these logs in the future, so deleting logs with your own risk.
+- /tmp ~ Delete files from /tmp directory, where have user permission
+- Memory Cache - Dangerous, use it with your own risk
+- Old kernel packages
+
+For old kernel packages you can remove any package you choose from the list.
+Now, SystemClean supports for 50 old packages from kernels to remove.
+If someone have more than 50 packages, then doesn't have choice in list to remove them
+and must be remove them manually or with another app.
+
+*** IMPORTANT ***
+Please make sure that is better to have 'two' or more kernels installed in your system from 'one',
+because if you destroy the kernel, to boot from one older kernel.
+
+
+Home mean:
+- Clean all programs cache you choose (Not affect the settings of program)
+
+
+
+*******************
+* How to install: *
+*******************
+1) double-click to archive 'Setup'
+2) choose the language you want install SystemClean
+3) Done.
+
+
+
+***************
+* How to use: *
+***************
+
+1) Go to Menu - Accessories and select "SystemClean"
+2) Follow the instructions
+
+
+
+
+******************
+* How to remove: *
+******************
+Remove from terminal with command:
+
+rm -rf ~/.systemclean ; rm -rf ~/.local/share/applications/systemclean.desktop
+
+and hit Enter. Done.
+
+Or manually:
+delete hide folder '.systemclean' from your "Home"
+delete file 'systemclean.desktop' from folder "applications" path is "/.local/share/applications/"
+
+Done.
+
+
+
+************************
+* How to translate it? *
+************************
+Just open "Translation" file with any text editor and - translate! :)
+

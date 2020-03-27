@@ -1,0 +1,9 @@
+Algunos de éstos scripts funcionan en conjunto con sus respectivos archivos ocultos. Para velos presiona Ctrl+H o en el menú Ver, Mostrar archivos ocultos.
+Y algunos de éstos funcionan en sus respectivas carpetas si modificar el nombre de la carpeta debes indicarlo en el scripts.
+Por ej. 
+TurnOff, depende de: /.gnome2/nautilus-scripts/.para-apagar-la-pc
+/Naveagdor Browser /browser.py, debe tener el archivo /inspector.py, en el mismo directorio.
+Multimedia/Radio , funciona con /Multimedia/.radio_web
+/Personalizar/change-wallpaper funciona con: /Personalizar/.randomer-file
+Si los cambias de directorio debes indicarlo en los correspondiente, scripts, que dependen de ellos.
+ Actualmente están configurados para usar en /.gnome2/nautilus-scripts/, si mueves el contenido completo de ésta carpeta a nautilus-scrips, estarán funcionando correctamente. Todos andan, en el texto Info, tienes indicaciones para modificar, 2 scripts a los le debes indicar la ruta correcta de tu carpeta de usuario.

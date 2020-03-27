@@ -1,0 +1,85 @@
+Estos scripts, son una serie que e ido juntando, y algunos creados por mi o modificados para gnome3, si tienen alguna consulta se pueden dirigir a baitsart@gmail.com ,o en mi canal de youtube, Baitsart.
+ Para usarlos deben moverlos a la carpeta ~/.gnome2/nautilus-scripts/
+
+En algunos de los scripts, no se debe modificar la ruta, osea el nombre de las de los directorios, que lo contienen.
+
+En éstos scripts deben indicarle la ruta correcta a los archivos, o poner el nombre que corresponde su carpeta de usuario:
+
+-Personalizar/.cambiar_el_mouse.  En la linea 11 y 21 columna 12, del archivo, debes cambiar `whoami` por tu nombre de usuario. Para saber tu nombre de usuario lanza el comando:  whoami , y cambiar donde `whoami` por el nombre que aparece.
+
+-Personalizar/random-nasa-wallpaper.pl, linea 113. Donde /home/pc la ruta a la carpeta de usuario /home/tu_usuario/. Y creará un directorio para guardar la imágenes , actualmente. ~/Imágenes/Nasa_Wallpapers, puedes cambiarlo si deseas.
+
+
+-Personalizar/change-wallpaper, linea 28 y 29. la ruta a la carpeta de imágenes que deseen, actualmente ~/Imágenes .Y la ruta a "random-file" (donde lo guarden), actualmente: ~/.gnome2/nautilus-scripts/Personalizar/.randomer-file/bin/random-file. Si la mueven indíquenlo en linea 29, que depende. Donde indican la ruta no puede tener espacios, yo lo intenté de varias formas pero no la reconocía a la ruta.
+
+-proteger_y_desproteger.tar.gz: |Descomprimir, y seguir las indicaciones. Su función es bloquear archivos, o carpetas con nuestra contraseña de usuario. 
+
+Otras opciones para el uso de éstos scripts.
+
+-El script Multimedia/Converter/Subtitulador . Funciona bien, aunque funciona también, desde la terminal. Así que podemos crear un archivo en '/usr/bin/' con el nombre por ej. subtitular, he indicamos la ruta actual. Con estos 3 comando:
+
+sudo gedit '/usr/bin/subtitular'
+Y le pegamos esto:
+
+#!/bin/bash/
+~/.gnome2/nautilus-scripts/Multimedia/Converter/.scriptsubtitular 
+
+Y le damos permiso de ejecutar:
+
+sudo chomd +x '/usr/bin/subtitular'
+ 
+Y ya podremos, situarnos en la carpeta con los vídeos y archivos de subtítulos, y en la terminal escribir subtitular y veremos el proceso.
+
+-Al archivo /.gnome2/nautilus-scripts/Multimedia/.radio_web lo pueden 
+llamar desde un comando en la terminal por ej. escuchar ,para eso deben crear un archivo de texto en /usr/bin/escuchar y darle permiso de ejecutar como un programa, con estos comandos
+sudo gedit /usr/bin/escuchar
+y le pegan éste texto:
+
+#!/bin/bash
+~/.gnome2/nautilus-scripts/Multimedia/.radio_web
+
+Guardan, y le dan permiso de ejecutar:
+
+sudo chmod +x /usr/bin/escuchar
+
+Y listo!
+Algunos dependen de otros programas como:
+-----------------------------------------------------------------------
+Para multimedia:
+mplayer
+mencoder
+ffmpeg
+-----------------------------------------------------------------------
+Para (Upload To YouTube):
+python-wxgtk2.8
+python-wxtools 
+wx2.8-i18n 
+wget 
+xterm 
+python-gdata
+python-wxglade -Versión para Ubuntu 12.04: http://www.club.cc.cmu.edu/pub/ubuntu//pool/universe/w/wxglade/python-wxglade_0.6.4-2_all.deb
+googlecl -Versión para Ubuntu 12.04: https://launchpadlibrarian.net/76849467/googlecl_0.9.13-1_all.deb
+-----------------------------------------------------------------------
+Para borwser.py:
+webkit
+-----------------------------------------------------------------------
+Para YouTube.DL
+youtube-dl
+-----------------------------------------------------------------------
+Para video-wallpaper:
+xscreensaver
+shantz-xwinwrap (ó, opcional) xwinwrap -Versión para Ubuntu 12.04: http://code.google.com/p/anibg/downloads/detail?name=shantz-xwinwrap_v0.3.deb&can=2&q=
+-----------------------------------------------------------------------
+Para Cambiar el mouse
+gcursor versión no actualizada "que si anda": http://old-releases.ubuntu.com/ubuntu/pool/universe/g/gcursor/gcursor_0.061-ubuntu4_i386.deb Como bloquear la versión de un programa, con un comando:( sudo wajig hold gcusor ) -·- sin paréntesis, sudo apt-get install wajig   . Manual: wajig help
+-----------------------------------------------------------------------
+Para saytime
+festival
+Instalar paquete de idioma español vos masculina:
+wget http://forja.guadalinex.org/frs/download.php/153/festvox-palpc16k_1.0-1_all.deb && sudo dpkg -i festvox-palpc16k_1.0-1_all.deb
+-----------------------------------------------------------------------
+Hay otras cosas que usan éstos scripts, pero vienen por defecto en las distribuciones de Ubuntu.
+Espero que les haya sido útil. Un saludo!
+
+-----------------------------------------------------------------------
+

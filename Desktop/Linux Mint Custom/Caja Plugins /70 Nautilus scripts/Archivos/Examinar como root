@@ -1,0 +1,5 @@
+#!/bin/bash
+path=$NAUTILUS_SCRIPT_SELECTED_URIS
+path=${path%?}
+quoted="$path"
+gksu "gnome-open $quoted"

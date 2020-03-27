@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# change-wallpaper
+#
+# Description: Select a random wallpaper
+# Version: 1.0
+#
+# Copyright (C) 2012 - K-Gigas Computers S.L.
+# Danilo Dellaquila <ddellaquila@gmail.com>
+#
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# This file is part of @ddellaquila/dd-repo
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DIR=~/Imágenes
+PIC=`~/.gnome2/nautilus-scripts/Personalizar/.randomer-file/bin/random-file $DIR`
+echo `date` $PIC
+
+# cron  needs the DBUS_SESSION_BUS_ADDRESS environment variable set
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] ; then
+ TMP=~/.dbus/session-bus
+ export $(grep -h DBUS_SESSION_BUS_ADDRESS= $TMP/$(ls -1t $TMP | head -n 1))
+fi
+
+# Set a Background Image
+gsettings set org.gnome.desktop.background picture-uri "file://$PIC"

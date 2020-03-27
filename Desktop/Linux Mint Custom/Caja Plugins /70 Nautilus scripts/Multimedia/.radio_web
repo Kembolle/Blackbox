@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo ""
+echo "Script para seleccionar qué radio queremos escuchar"
+echo""
+echo " 1 -> Serapys Bey Panamá"
+echo " 2 -> Babel FM"
+echo " 3 -> Soulful Alfonzo Blackwell"
+echo " 4 -> Emisora del Sur 94.7 FM"
+echo " 5 -> Uruguay 1050 AM"
+echo " 6 -> Clásica 650 AM"
+echo ""
+echo "Seleccione una de las radios "
+read radio
+if [ $radio = "1" ]
+then
+mplayer -playlist http://201.218.235.243:8000/listen.pls
+elif [ $radio = "2" ]
+then
+mplayer -playlist http://radio.sodreuruguay.com:9170/listen.pls
+elif [ $radio = "3" ]
+then
+mplayer http://67.159.12.5:80/SoulfulAlfonzoBlackwell_hi.mp3
+elif [ $radio = "4" ]
+then
+mplayer -playlist http://radio.sodreuruguay.com:9160/listen.pls
+elif [ $radio = "5" ]
+then
+mplayer -playlist http://radio.sodreuruguay.com:9120/listen.pls
+elif [ $radio = "6" ]
+then
+mplayer -playlist http://radio.sodreuruguay.com:9090/listen.pls
+fi

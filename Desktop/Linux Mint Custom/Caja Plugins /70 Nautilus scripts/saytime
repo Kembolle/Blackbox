@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "Hoy es: `date +%d` `date +%B` `date +%Y` y la hora es: `date +%k` y `date +%M` minutos" | festival  --tts

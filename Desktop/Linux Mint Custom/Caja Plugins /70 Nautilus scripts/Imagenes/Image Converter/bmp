@@ -1,0 +1,80 @@
+#!/bin/bash
+# script by Orlando De Giorgi
+
+
+# PNG (o png)
+nuovo=$(basename $1 | sed s/".png"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+nuovo=$(basename $1 | sed s/".PNG"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+
+# TIF (o tif)
+nuovo=$(basename $1 | sed s/".tif"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+nuovo=$(basename $1 | sed s/".TIF"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+# JPG (o jpg)
+nuovo=$(basename $1 | sed s/".JPG"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+nuovo=$(basename $1 | sed s/".jpg"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+# JPEG (o jpeg)
+nuovo=$(basename $1 | sed s/".JPEG"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+nuovo=$(basename $1 | sed s/".jpeg"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+# GIF (o gif)
+nuovo=$(basename $1 | sed s/".GIF"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+
+nuovo=$(basename $1 | sed s/".gif"/".bmp"/)
+if [ "$1" != "$nuovo" ]
+then
+	convert  $1 $nuovo
+	exit;
+fi
+

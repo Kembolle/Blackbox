@@ -1,0 +1,6 @@
+#!/bin/bash
+# script by Orlando De Giorgi
+# elimina i bordi dalle immagini (aree dello stesso colore)
+
+convert $1 -trim $1
+

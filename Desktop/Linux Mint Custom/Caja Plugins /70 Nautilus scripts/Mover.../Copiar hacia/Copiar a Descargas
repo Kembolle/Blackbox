@@ -1,0 +1,9 @@
+#!/bin/bash
+FILE=`echo -n $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS`
+
+DESTINO=$HOME/Descargas
+cp -uR "$@" "$DESTINO"
+exit
+
+
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+FILE=`echo -n $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS`
+
+DESTINO=$(zenity --title "Seleccione una carpeta" --file-selection --directory)
+mv -i "$@" "$DESTINO"
+exit
+

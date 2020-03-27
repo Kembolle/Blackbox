@@ -1,0 +1,15 @@
+#!/bin/sh
+echo
+
+var=`zenity --entry --title="YouTubeDL" --text="Ingrese el link del video youtube que va a descargar:"`
+
+{
+if [ $? = 0 ] ; then
+
+youtube-dl -t -x "$var" | zenity --progress --pulsate --auto-close --auto-kill --title="YouTubeDL" --text="Descargando el archivo $var !"
+	fi
+}
+
+zenity --info --title="YouTubeDL" --text="Descarga terminada! $var  Script YouTubeDL(youtube-songs)"
+exit 0
+

@@ -1,0 +1,5 @@
+#!/bin/bash
+path=$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS
+path=${path%?}
+quoted="file://$path"
+gnome-terminal -x mplayer "$quoted"

@@ -1,0 +1,276 @@
+#!/usr/bin/python
+#
+# :: Invasion Tux
+# :: Ultima modificacion : jueves, 22 de enero de 2009
+# :: Script realizado por makiolo (makiolo@gmail.com) (Licencia Creative Commons con reconocimiento)
+# :: Ultima version : http://blogricardo.wordpress.com/2008/09/28/script-para-pegar-subtitulos-de-forma-masiva/
+# :: Dependencias : python , mencoder
+#
+
+import sys,os,fnmatch,glob
+
+#CONFIGURACION
+FUENTE = "/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf"
+TAM_LETRA = "3.2"
+FORMATOS_VALIDOS = ["avi","mpg","mkv","mpg2","mpg4","mp4","flv","wmv","ogv"]
+RETRASO_SUBTITULOS_SEG = 0 # Con -10 aparecen los subtitulos 10 segundos mas tarde
+AUDIO_CODEC = "copy"
+VIDEO_CODEC = "xvid -xvidencopts pass=1" # bitrate=1030:pass=1
+SUFIJO_SALIDA="_sub"
+EXTENSION_SALIDA="avi"
+
+#AUXILIARES,  no modificar
+FORZAR=False
+VERBOSE=False
+LISTADO_VIDEOS_AUTOMATICO=True
+MOSTRAR_AYUDA=False
+RECURSIVO=False
+
+def comprobarExistencia(fichero):
+	if(os.path.exists(fichero)):
+		return True
+	else:
+		return False
+
+def getExtension(fichero):
+	posPunto = video.rfind(".")
+	return fichero[posPunto+1:len(fichero)]
+
+def nombreFichero(fichero):
+	posPunto = video.rfind(".")
+	return fichero[0:posPunto]
+
+def extensionEsValida(fichero):
+	posPunto = video.rfind(".")
+	if posPunto != -1:
+		extension = getExtension(fichero)
+		try:
+			FORMATOS_VALIDOS.index(extension)
+			return True
+		except ValueError:
+			return False
+	else:
+		return False
+
+def glob_get_dirs(path):
+	'''
+		Devuelve una lista de directorios del directorio "path"
+
+http://newspiritcompany.infogami.com/recursive_glob_py
+
+	'''
+	d = []
+	try:
+		for i in os.listdir(path):
+			if os.path.isdir(path+i):
+				d.append(os.path.basename(i))
+
+	except NameError, ne:
+		print "NameError thrown=", ne
+	except:
+		print sys.exc_info()[0]
+		print "ERROR en get_dirs()"
+
+	return d
+
+def rec_glob(path, mask):
+	'''
+		Recursivo glob en el actual directorio
+
+http://newspiritcompany.infogami.com/recursive_glob_py
+
+	'''
+	l = []
+	if (sys.platform[:5] == "linux"):
+		if path[-1] != '/':
+			path = path + '/'
+	else: # Realmente no lo he probado en windows
+		if path[-1] != '\\':
+			path = path + '\\'
+
+	for i in glob_get_dirs(path):
+		res = rec_glob(path + i, mask)
+		l = l + res
+
+	try:
+		for i in os.listdir(path):
+			ii = i
+            		i = path + i
+			if os.path.isfile(i):
+                		if fnmatch.fnmatch(ii, mask):
+                    			l.append(i)
+
+	except NameError, ne:
+		print "NameError=", ne
+	except:
+		print sys.exc_info()[0]
+		print "ERROR en rec_glob()"
+
+	return l  
+
+correctos = []
+erroneos = []
+listaVideos = []
+
+if(len(sys.argv) > 1):
+	for i in range(1,len(sys.argv)):
+		parametro = sys.argv[i]
+		if(parametro == "-forzar" or parametro == "-f"):
+			FORZAR=True
+		elif(parametro == "-verbose" or parametro == "-v"):
+			VERBOSE=True
+		elif(parametro == "-recursive" or parametro == "-r" or parametro == "-recursivo"):
+			RECURSIVO=True
+		elif(parametro == "-help" or parametro == "-h" or parametro == "-ayuda"):
+			MOSTRAR_AYUDA=True
+		else:
+			LISTADO_VIDEOS_AUTOMATICO = False
+			print "Parametro desconocido : "+parametro+" se considera un video para pegar subtitulos"
+			expresionExpandida = glob.glob(parametro)
+			for j in expresionExpandida:
+				listaVideos.append(j)
+
+if(MOSTRAR_AYUDA):
+	print "Uso: "+os.path.basename(sys.argv[0])+" [-f] [-v] [-r] [-h] [video1 video2 video3 ... videoN]"
+	print "-forzar|-f\t\t\tFuerza a sobreescribir el archivo de salida : "+SUFIJO_SALIDA+"."+EXTENSION_SALIDA
+	print "-verbose|-v\t\t\tMuestra mas informacion de salida"
+	print "-recursive|-r|-recursivo\tBusca videos recursivamente"
+	print "-help|-h|-ayuda\t\t\tMuestra esta ayuda"
+	print "Importante:"
+	print " - Todo parametro desconocido se considerara un video para ripear"
+	print " - Si no se especifican videos, los videos se listaran de manera automatica"
+	exit(0)
+
+if (LISTADO_VIDEOS_AUTOMATICO):
+	for extension in FORMATOS_VALIDOS:
+		if(RECURSIVO):
+			listaVideos += rec_glob(".", "*."+extension)
+		else:
+			listaVideos += glob.glob("*."+extension)
+	#Borrar todos los videos que terminan _sub.avi
+	final = SUFIJO_SALIDA+"."+EXTENSION_SALIDA
+	lenFinal = len(final)
+	copia = []
+	for video in listaVideos:
+		if(video[-lenFinal:] != final):
+			copia.append(video)
+	listaVideos = copia
+	#Ordenamos la lista
+	listaVideos.sort()
+
+numVideos = len(listaVideos)
+videosProcesados=0
+
+if numVideos > 0:
+
+	listaSubtitulos = ""
+	for video in listaVideos:
+		nombreVideo = nombreFichero(video)
+		if comprobarExistencia(nombreVideo+".srt"):
+			listaSubtitulos += "\""+nombreVideo+".srt\" " # nombre del subtitulo entre comillas + un espacio
+	if(len(listaSubtitulos) > 0):
+		print "===================== Preparar subtitulos con la codificacion LATIN1 ===================="
+		print "{"
+		os.system("file "+listaSubtitulos+" | grep UTF-8 | cut -d: -f1 | sed 's/\ /\\\\ /g' | awk -F. 'BEGIN{n=0} { system(\"iconv \"$0\" -f UTF-8 -t LATIN1 > \"$0\"2 && mv \"$0\"2 \"$0); print \"Se ha convertido la codificacion desde UTF-8 a Latin1 en el archivo : \"$0; n++;} END{ print \"Se han modificado \"n\" subtitulos.\" }'")
+		print "}"		
+
+	for video in listaVideos:
+		try:
+			videosProcesados = videosProcesados + 1
+			print "===================== "+video+" ("+str(videosProcesados)+"/"+str(numVideos)+") ===================="
+			print "{"
+			if comprobarExistencia(video):
+				if(extensionEsValida(video)):
+					extension = getExtension(video)
+					nombreVideo = nombreFichero(video)
+					if comprobarExistencia(nombreVideo+".srt"):
+						videoSalida = nombreVideo+SUFIJO_SALIDA+"."+EXTENSION_SALIDA
+						# Si el video existe ---> ripeo si forzar = TRUE
+						# Si el video no existe ---> ripeo sin importar forzar
+						if 	(
+								(comprobarExistencia(videoSalida) and FORZAR) or
+								(comprobarExistencia(videoSalida) == False)
+							):
+							print "Ripeando (esto puede llevar bastante tiempo) ..."
+							if (VERBOSE):
+								mencoderVerbose = ""
+							else:
+								mencoderVerbose = " -really-quiet"
+
+							estadoSalida = os.system("mencoder \""+video+"\" -sub \""+nombreVideo+".srt\" -oac "+AUDIO_CODEC+" -ovc "+VIDEO_CODEC+" -o \""+videoSalida+"\" -subcp latin1 -subdelay \""+str(RETRASO_SUBTITULOS_SEG)+"\" -font \""+FUENTE+"\" -subfont-text-scale \""+TAM_LETRA+"\""+mencoderVerbose)
+							if(comprobarExistencia("divx2pass.log")):
+								os.remove("divx2pass.log")
+							if(estadoSalida == 0):
+								mensaje = "OK - "+video+": Se ha sub correctamente como "+videoSalida
+								print "OK"
+								print "}"
+								print
+								correctos.append(mensaje)
+							else:
+								mensaje = "ERROR - "+video+": Mencoder no finalizo correctamente"
+								print "ERROR"
+								print "}"
+								print
+								erroneos.append(mensaje)
+						else:
+							mensaje = "ERROR - "+video+": El video ya se ripeo como "+videoSalida+". Utilize -f|-forzar para sobreescribir el sub"
+							print "ERROR"
+							print "}"
+							print
+							erroneos.append(mensaje)
+					else:
+						mensaje = "ERROR - "+video+": El video requiere un archivo de subtitulos llamado: "+nombreVideo+".srt"
+						print "ERROR"
+						print "}"
+						print
+						erroneos.append(mensaje)
+				else:
+					mensaje = "ERROR - "+video+": Formato de video no valido"
+					print "ERROR"
+					print "}"
+					print
+					erroneos.append(mensaje)
+			else:
+				mensaje = "ERROR - "+video+": No existe el fichero"
+				print "ERROR"
+				print "}"
+				print
+				erroneos.append(mensaje)
+		except KeyboardInterrupt:
+			mensaje = "ERROR - "+video+": Se ha interrumpido el proceso en el "+str(videosProcesados)+" y todavian quedaban "+str(numVideos-videosProcesados)+" videos"
+			print "ERROR"
+			print "}"
+			print
+			erroneos.append(mensaje)
+
+	print "================= INFORME DE RESULTADOS ========================="
+	print "{"
+
+	if(len(correctos) == videosProcesados):
+		print "\t{"
+		print "\t================= Todo sub correctamente ==================="
+		print "\t}"
+	else:
+		if(len(correctos) > 0):
+			print "\t================ Videos correctos ("+str(len(correctos))+"/"+str(videosProcesados)+") =============="
+			print "\t{"
+			for mensaje in correctos:
+				print "\t"+mensaje
+			print "\t}"
+
+	if(len(erroneos) > 0):
+		print "\t=================== Videos erroneos ("+str(len(erroneos))+"/"+str(videosProcesados)+") ================="
+		print "\t{"
+		for mensaje in erroneos:
+			print "\t"+mensaje
+		print "\t}"
+
+	print "}"
+else:
+	print
+	print "\t\tNo hay videos que subtitular O_O"
+	print
+
+print ":: Invasion Tux (makiolo@gmail.com) http://blogricardo.wordpress.com"
+
+

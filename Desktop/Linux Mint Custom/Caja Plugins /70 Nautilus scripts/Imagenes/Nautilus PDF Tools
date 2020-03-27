@@ -1,0 +1,212 @@
+#!/bin/bash
+# Desarrollado por Gustavo Báez Moreno
+subprograma=`zenity --entry  --title="Selección de accion" --text="1.-Unir PDF
+2.- Seccionar páginas en archivos
+3.- Extraer páginas
+4.- Insertar marca de agua (marca de agua encima-stamp-)
+5.- Insertar marca de agua (marca de agua abajo -background-)
+6.- Proteger PDF
+7.- Reparar PDF
+8.-Convertir a PDF (Cualquier formato soportado en OpenOffice!!!!!!!)
+9.-Extraer contraseña/s (Ejecutar en consola abierta para poder ver:user (para abrirlo)/owner (para editarlo))-Requiere instalar pdfcrack (disponible en Ubuntu)- 3 caracteres rápido, más caracteres bruteforce laborioso"`
+case $subprograma in
+
+# Unir PDF
+1)
+clear
+#!/bin/bash
+# Desarrollado por Gustavo BÃ¡ez Moreno
+Seleccion=`zenity --title "Selecciona en orden los pdfs que quieres unir"  --file-selection --multiple|sed -e 's/|/\" \"/g'`
+echo \"$Seleccion\"
+echo "Ha seleccionado los siguientes PDF  \"$Seleccion\""
+Salida=$(zenity --file-selection --title "Selecciona la ruta y escribe el nombre del PDF que quieres crear " --save --confirm-overwrite)
+echo pdftk \"$Seleccion\" cat output \"$Salida\">/home/$USER/Escritorio/temporal_mezclar
+chmod +x /home/$USER/Escritorio/temporal_mezclar
+/home/$USER/Escritorio/temporal_mezclar
+rm /home/$USER/Escritorio/temporal_mezclar
+;;
+# Seccionar en páginas
+2)
+FILE=`zenity --file-selection  --title="Selecciona el archivo pdf del cual quiere extraer cada una de las páginas como archivos independientes"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+salida=$(zenity --file-selection --save --confirm-overwrite);
+	
+	pdftk "$FILE" burst output "$salida"_%02d.pdf
+;;
+# Extraer páginas
+3)
+clear
+FILE=`zenity --file-selection  --title="Selecciona el archivo pdf del cual quiere extraer las páginas"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+DESDE=`zenity --entry  --title="Selección de primera página" --text="Número de la primera página que quiere extraer"`
+HASTA=`zenity --entry  --title="Selección de última página" --text="Número de la última página que quiere extraer"`
+salida=$(zenity --file-selection --save --confirm-overwrite);
+	
+	pdftk A="$FILE" cat 'A'$DESDE-$HASTA output "$salida"
+echo "pdftk A="$FILE" cat "$FILE"$DESDE-$HASTA "$FILE2" output "$salida""
+;;
+#Insertar marca de agua (stamp)-Requiere un PDF con transparencia
+4)
+clear
+ FILE=`zenity --file-selection  --title="Selecciona el archivo pdf a insertar la marca de agua"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "No ha seleccionado ningún archivo.";;
+        esac
+zenity --info \
+          --text="Cuando acepte este cuadro se abrirá un diálogo para seleccionar el archivo que hará de marca de agua. El archivo que va a seleccionar como marca de agua debe ser pdf con una imagen transparente pues esta se va a colocar encima de su documento, no vale un jpg."
+
+	FILE2=`zenity --file-selection --title="Selecciona el archivo pdf  que servirá de marca de agua"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE2\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "No ha seleccionado ningún archivo.";;
+        esac
+
+
+	salida=$(zenity --file-selection --save --confirm-overwrite);echo $salida
+	
+	pdftk "$FILE" stamp "$FILE2" output "$salida"
+;;
+#Insertar marca de agua (background)
+5)
+clear
+ FILE=`zenity --file-selection  --title="Selecciona el archivo pdf a insertar la marca de agua"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "No ha seleccionado ningún archivo.";;
+        esac
+zenity --info \
+          --text="Cuando acepte este cuadro se abrirá un diálogo para seleccionar el archivo que hará de marca de agua. El archivo que va a seleccionar como marca de agua debe ser pdf, no vale un jpg. Con este mismo programa puedes pasar la imagen a PDF."
+
+	FILE2=`zenity --file-selection --title="Selecciona el archivo pdf  que servirá de marca de agua"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE2\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "No ha seleccionado ningún archivo.";;
+        esac
+
+
+	salida=$(zenity --file-selection --save --confirm-overwrite);echo $salida
+	
+	pdftk "$FILE" background "$FILE2" output "$salida"
+;;
+# Proteger PDF
+6)
+clear
+FILE=`zenity --file-selection  --title="Selecciona el archivo pdf que quiere proteger"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+salida=$(zenity --file-selection --save --confirm-overwrite);
+USUARIO=`zenity --entry  --title="CONTRASEÑA DE PROPIETARIO" --text="Introduzca un nombre de usuario sin espacios (necesario para revocar/dar permisos en el futuro)"`
+opcion=`zenity --entry  --title="CLAVE PARA APERTURA" --text="¿Se requerirá contraseña de apertura? Escriba s (de si)  ó   n (de no)"`
+	if test $opcion = n 
+	then
+   	CONTRASE=ninguna
+  	else
+	CONTRASE=`zenity --entry  --title="CONTRASEÑA DE APERTURA---sin espacios y diferente a la de usuario---" --text="Introduzca una contraseña (necesaria para abrir el documento)"`
+	fi
+zenity --info \
+          --text="Opciones: Printing= Se permite impresión a alta calidad; DegradedPrinting= Se permite impresión a baja calidad ; ModifyContents= Modificar contenidos, incluso reensamblado; Assembly= se permite extraer/ unir páginas ; CopyContents= Se permite copiar contenidos y lectores de pantalla ; ScreenReaders= Se permiten los lectores de pantalla ; ModifyAnnotations= Se permiten modificar las anotaciones incluido rellenado de formulario ; FillIn= Se permite el rellenado del formulario AllFeatures= Se permite todo lo anterior "
+PERMISOS=`zenity --entry  --title="PERMISOS" --text="Escriba cada opción separada por espacios: Printing DegradedPrinting ModifyContents ScreenReaders ModifyAnnotations FillIn AllFeatures"`
+	if test $opcion = n  
+	then
+	pdftk "$FILE" output "$salida" owner_pw $USUARIO allow $PERMISOS
+	else
+	pdftk "$FILE" output "$salida" owner_pw $USUARIO user_pw $CONTRASE allow $PERMISOS
+	fi
+;;
+# Reparar PDF
+7)
+clear
+FILE=`zenity --file-selection  --title="Selecciona el archivo pdf corrupto que quieres intentar reparar"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+salida=$(zenity --file-selection --save --confirm-overwrite);
+	
+	pdftk "$FILE" output "$salida"
+;;
+# Convertir a PDF::::: Convierte cualquier formato soportado por OpenOffice::::::Requiere Cups PDF y OpenOffice
+8)
+clear
+FILE=`zenity --file-selection  --title="Selecciona el documento que quieres transformar a PDF (.odt, .doc, jpeg ...etc--Todos los soportados por OpenOffice---"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+zenity --info \
+          --text="El documento generado se guradará en \"$USER\"/Carpeta definida en CUPS-PDF (Vistar http://www.guia-ubuntu.org/index.php?title=Instalar_impresora#Instalar_una_impresora_PDF      ó      ejecutar script http://www.atareao.es/ubuntu/conociendo-ubuntu/instalar-una-impresora-pdf-en-ubuntu-con-un-script/ "
+soffice  -pt PDF "$FILE"
+;;
+# Recuperar la clave de usuario(para abrirlo)/propietario (para mofificarlo) de un pdf
+9) 
+clear
+FILE=`zenity --file-selection  --title="Selecciona el documento del cual quieres extraer la clave/s-"`
+
+        case $? in
+                 0)
+                        echo "\"$FILE\" seleccionado.";;
+                 1)
+                        echo "No ha seleccionado ningún archivo.";;
+                -1)
+                        echo "Ha ocurrido un error inesperado.";;
+        esac
+zenity --info \
+          --text="Para utilizar esta opción debes instalar la libreria pdfcrack (disponible en Ubuntu), si la clave es de +3 dígitos tarda-ej 5 caracteres 1 hora mínimo "
+pdfcrack -o "$FILE"
+
+esac
+

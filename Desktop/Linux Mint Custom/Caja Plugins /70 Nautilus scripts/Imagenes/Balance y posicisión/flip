@@ -1,0 +1,5 @@
+#!/bin/bash
+# script by Orlando De Giorgi
+
+convert -flip $1 $1
+

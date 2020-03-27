@@ -1,0 +1,8 @@
+#!/bin/bash
+
+FILE=`echo -n $NAUTILUS_SCRIPT_SELECTED_FILE_PATHS`
+
+DESTINO=$HOME/Vídeos
+mv -i "$@" "$DESTINO"
+exit
+
