@@ -1,13 +1,13 @@
 [
     {
-        "Key" : "AB",
+        "Key" : "Agua Boa",
         "name" : "Agua Boa",
         "latitude" : -14.058713395427821,
         "longitude" : -52.16189369184013
     },
     {
-        "Key" : "AF",
-        "name" : "Alta Floresta ",
+        "Key" : "Alta Floresta",
+        "name" : "Alta Floresta",
         "latitude" : -9.868344398301053,  
         "longitude" : -56.08050853490562
     },
